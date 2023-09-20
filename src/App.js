@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CloudUploadOutlined, VideoCameraOutlined, UserOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Avatar, Layout, Menu, Switch, theme } from 'antd';
 import UploadFile from './uploadVideo';
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Live from './live_cam';
@@ -37,11 +37,22 @@ const App = () => {
         <Header
           style={{
             display: 'flex',
+            justifyContent: 'space-between',
             alignItems: 'center',
+            backgroundColor: '#001529',
           }}
         >
-          <div className="demo-logo" />
-          <Menu theme="dark" mode="horizontal" />
+          <div className="demo-logo">
+            <h2 style={{ color: 'white', margin: 0 }}>ThinkEdu.</h2>
+          </div>
+          <Avatar
+            size={'large'}
+            icon={<UserOutlined />}
+            style={{
+              backgroundColor: 'white',
+              color: 'black',
+            }}
+          />
         </Header>
         <Content
           style={{
@@ -72,12 +83,12 @@ const App = () => {
                 <Menu.Item key={'/upload'}>
                   <CloudUploadOutlined />
                   <span>Upload Video</span>
-                  <Link to="/"/>
+                  <Link to="/" />
                 </Menu.Item>
                 <Menu.Item key={'/live'}>
                   <VideoCameraOutlined />
                   <span>Live cam</span>
-                  <Link to="/live"/>
+                  <Link to="/live" />
                 </Menu.Item>
               </Menu>
             </Sider>

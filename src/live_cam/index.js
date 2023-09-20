@@ -37,7 +37,7 @@ const Live = () => {
                 title="YouTube video player"
                 frameborder="0"
                 sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer;  encrypted-media; gyroscope; picture-in-picture' // Allow specific features
+                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
                 allowfullscreen
               ></iframe>
             </Col>
@@ -50,7 +50,7 @@ const Live = () => {
                 title="YouTube video player"
                 frameborder="0"
                 sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer;  encrypted-media; gyroscope; picture-in-picture' // Allow specific features
+                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
                 allowfullscreen
               ></iframe>
             </Col>
@@ -63,7 +63,7 @@ const Live = () => {
                 title="YouTube video player"
                 frameborder="0"
                 sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer;  encrypted-media; gyroscope; picture-in-picture' // Allow specific features
+                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
                 allowfullscreen
               ></iframe>
             </Col>
@@ -76,7 +76,7 @@ const Live = () => {
                 title="YouTube video player"
                 frameborder="0"
                 sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer;  encrypted-media; gyroscope; picture-in-picture' // Allow specific features
+                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
                 allowfullscreen
               ></iframe>
             </Col>
