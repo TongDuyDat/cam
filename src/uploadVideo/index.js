@@ -3,15 +3,37 @@ import { VideoCameraOutlined } from '@ant-design/icons';
 import { Card, Space, Row, Col, Image, Progress } from 'antd';
 import { useDropzone } from 'react-dropzone';
 import Chart from './chart';
+import axios from 'axios';
 
 const UploadFile = (props) => {
   const [files, setFiles] = useState([]);
   const [isDrag, setIsDrag] = useState(false)
   const [percent, setPercent] = useState(0);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
     setIsDrag(true)
+
+    // const videoFile = acceptedFiles[0]; // Assuming a single file is dropped
+
+    // // Create a FormData object to send the file
+    // const formData = new FormData();
+    // formData.append('video', videoFile);
+
+    // try {
+    //   // Send the file to the backend endpoint
+    //   const response = await axios.post('/upload-video', formData, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data', // Important for file uploads
+    //     },
+    //   });
+    //   if (response) {
+    //     console.log('File uploaded successfully:', response.data);
+    //   }
+    // } catch (error) {
+    //   // Handle errors
+    //   console.error('Error uploading file:', error);
+    // }
   }, []);
 
   const {
@@ -30,8 +52,8 @@ const UploadFile = (props) => {
   const dropzoneStyles = useMemo(
     () => ({
       // width: '70vw',
-      maxWidth:'70vw',
-      minWidth:'50vw',
+      maxWidth: '70vw',
+      minWidth: '50vw',
       height: 100,
       border: isDragActive
         ? isDragAccept
@@ -42,29 +64,6 @@ const UploadFile = (props) => {
     }),
     [isDragActive, isDragAccept]
   );
-
-  // Request to backend 
-  // const customRequest = async ({ file, onSuccess, onError }) => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('file', file);
-
-  //     const response = await fetch('/upload-video-endpoint', {
-  //       method: 'POST',
-  //       body: formData,
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Upload failed');
-  //     }
-
-  //     const data = await response.json();
-  //     onSuccess(data, file);
-  //   } catch (error) {
-  //     console.error('Error uploading file:', error);
-  //     onError(error);
-  //   }
-  // };
 
   const increase = () => {
     setPercent((percent) => {
@@ -104,7 +103,7 @@ const UploadFile = (props) => {
               </Col>
             </Row>
           </div>
-          {isDrag ? <Progress percent={percent} style={{ maxWidth:'70vw', minWidth:'50vw' }} /> : null}
+          {isDrag ? <Progress percent={percent} style={{ maxWidth: '70vw', minWidth: '50vw' }} /> : null}
         </Space>
         {isDrag ?
           <Space size="small" direction="vertical" align='center'>
@@ -113,10 +112,10 @@ const UploadFile = (props) => {
                 {files.map((file) =>
                 (
                   <>
-                  <h2>Before</h2>
-                  <video key={file.name} controls width="100%" height="70%" style={{ paddingRight: '5%' }} >
-                    <source src={URL.createObjectURL(file)} type={file.type} />
-                  </video>
+                    <h2>Before</h2>
+                    <video key={file.name} controls width="100%" height="70%" style={{ paddingRight: '5%' }} >
+                      <source src={URL.createObjectURL(file)} type={file.type} />
+                    </video>
                   </>
                 ))}
               </Col>
@@ -124,10 +123,10 @@ const UploadFile = (props) => {
                 {files.map((file) =>
                 (
                   <>
-                  <h2>After</h2>
-                  <video controls width="100%" height="70%" >
-                    <source src={URL.createObjectURL(file)} />
-                  </video>
+                    <h2>After</h2>
+                    <video controls width="100%" height="70%" >
+                      <source src={URL.createObjectURL(file)} />
+                    </video>
                   </>
                 ))}
               </Col>
