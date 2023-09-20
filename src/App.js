@@ -111,7 +111,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          Huy Design ©2023 Created by NgocHuy HDU
         </Footer>
       </Layout>
     </Router>
