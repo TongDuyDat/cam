@@ -45,7 +45,7 @@ const UploadFile = (props) => {
     onDrop,
     accept: {
       'video/mp4': [],
-      'video/mov': []
+      // 'video/mov': []
     }
   });
 
@@ -99,7 +99,7 @@ const UploadFile = (props) => {
               </Col>
               <Col span={16}>
                 <p>Drag 'n' drop some files here, or click to select files</p>
-                <em>(Only *.mp4, *.mov videos will be accepted)</em>
+                <em>(Only *.mp4 videos will be accepted)</em>
               </Col>
             </Row>
           </div>
