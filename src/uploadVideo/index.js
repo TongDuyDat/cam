@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react'
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import { VideoCameraOutlined } from '@ant-design/icons';
 import { Card, Space, Row, Col, Image, Progress } from 'antd';
 import { useDropzone } from 'react-dropzone';
@@ -9,33 +9,43 @@ const UploadFile = (props) => {
   const [files, setFiles] = useState([]);
   const [isDrag, setIsDrag] = useState(false)
   const [percent, setPercent] = useState(0);
+  const [response, setResponse] = useState(false)
+  const [delay, setDelay] = useState(5000)
+  const [data, setData] = useState({})
+  const [link, setLink] = useState(null);
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setFiles(acceptedFiles);
     setIsDrag(true)
+    setResponse(false)
 
-    // const videoFile = acceptedFiles[0]; // Assuming a single file is dropped
+    const videoFile = acceptedFiles[0]; // Assuming a single file is dropped
 
-    // // Create a FormData object to send the file
-    // const formData = new FormData();
-    // formData.append('video', videoFile);
+    // Create a FormData object to send the file
+    const formData = new FormData();
+    formData.append('file', videoFile);
 
-    // try {
-    //   // Send the file to the backend endpoint
-    //   const response = await axios.post('/upload-video', formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data', // Important for file uploads
-    //     },
-    //   });
-    //   if (response) {
-    //     console.log('File uploaded successfully:', response.data);
-    //   }
-    // } catch (error) {
-    //   // Handle errors
-    //   console.error('Error uploading file:', error);
-    // }
+    try {
+      // Send the file to the backend endpoint
+      const response = await axios.post('https://65ef-171-234-162-60.ngrok-free.app/upload_video', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Important for file uploads
+        },
+      });
+      if (response) {
+        setResponse(true)
+        // setPercent(percent + 30)
+        setLink(response.data.res_file)
+        setData(response.data.char)
+        setDelay(100)
+        setPercent(0)
+        console.log('File uploaded successfully:', response.data);
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('Error uploading file:', error);
+    }
   }, []);
-
   const {
     getRootProps,
     getInputProps,
@@ -66,21 +76,19 @@ const UploadFile = (props) => {
   );
 
   const increase = () => {
-    setPercent((percent) => {
-      const newPercent = percent + 1;
-      if (newPercent > 70) {
-        return 70;
-      }
-      return newPercent;
-    });
+    if(percent < 100){
+      setPercent(percent + 1)
+    }
+    // else if(percent < 100 && response == true){
+    //   setPercent(percent + 1)
+    // }
   };
   useEffect(() => {
-    const interval = setInterval(increase, 100)
+    const interval = setInterval(increase, delay)
     return () => {
       clearInterval(interval);
     };
-  }, [])
-
+  }, [percent, response])
   return (
     <>
       <Card title="Upload Video">
@@ -106,41 +114,43 @@ const UploadFile = (props) => {
           {isDrag ? <Progress percent={percent} style={{ maxWidth: '70vw', minWidth: '50vw' }} /> : null}
         </Space>
         {isDrag ?
-          <Space size="small" direction="vertical" align='center'>
-            <Row>
+          <Row>
+            <Col span={12} style={{ display: 'grid', alignItems: 'center' }}>
+              {files.map((file) =>
+              (
+                <>
+                  <h2>Video video lớp học</h2>
+                  <video key={file.name} controls width="100%" height="70%" style={{ paddingRight: '5%' }} >
+                    <source src={URL.createObjectURL(file)} type={file.type} />
+                  </video>
+                </>
+              ))}
+            </Col>
+            {response ?
               <Col span={12} style={{ display: 'grid', alignItems: 'center' }}>
                 {files.map((file) =>
                 (
                   <>
-                    <h2>Before</h2>
-                    <video key={file.name} controls width="100%" height="70%" style={{ paddingRight: '5%' }} >
-                      <source src={URL.createObjectURL(file)} type={file.type} />
+                    <h2>Video được tích hợp công nghệ AI</h2>
+                    <video key={1} controls width="100%" height="70%" >
+                      <source src={link} />
                     </video>
                   </>
                 ))}
-              </Col>
-              <Col span={12} style={{ display: 'grid', alignItems: 'center' }}>
-                {files.map((file) =>
-                (
-                  <>
-                    <h2>After</h2>
-                    <video controls width="100%" height="70%" >
-                      <source src={URL.createObjectURL(file)} />
-                    </video>
-                  </>
-                ))}
-              </Col>
-            </Row>
-            <Row>
-              <div style={{ width: '40%' }}>
-                <Chart />
-              </div>
-            </Row>
-          </Space>
-          :
-          null
+              </Col> : null
+            }
+          </Row>
+          : null
         }
-
+        {response ? 
+        <Row>
+          <h2>Thời gian giáo viên trong lớp: {parseFloat(data.time_teach_in_class.toFixed(1))}s</h2>
+          <div style={{ width: '100%' }}>
+            <Chart data={data.char} time={data.time_teach_in_class}/>
+          </div>
+        </Row>
+          : null
+        }
       </Card>
     </>
   )

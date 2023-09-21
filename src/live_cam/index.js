@@ -1,7 +1,8 @@
 import { Card, Col, Row } from "antd";
 import React from "react";
 import WebcamScreen from "../Webcam";
-import Chart from "../uploadVideo/chart";
+// import Chart from "../uploadVideo/chart";
+import FakeChart from "./fakeChart";
 import Webcam from 'react-webcam'
 
 
@@ -13,76 +14,11 @@ const Live = () => {
       {/* <video> */}
       <Row gutter={8}>
         <Col span={12}>
-          {/* <WebcamScreen /> */}
-          <iframe
-            width="100%"
-            height="100%"
-            auto
-            src="https://www.youtube.com/embed/z2OXnXu3_nc?controls=0&autoplay=1"
-            title="YouTube video player"
-            frameborder="0"
-            sandbox='allow-scripts allow-same-origin' // Security sandbox options
-            allow='accelerometer;  encrypted-media; gyroscope; picture-in-picture' // Allow specific features
-            allowfullscreen
-          ></iframe>
+          <WebcamScreen />
         </Col>
         <Col span={12}>
-          <Row gutter={8}>
-            <Col span={6}>
-              <iframe
-                width="100%"
-                height="100%"
-                auto
-                src="https://www.youtube.com/embed/z2OXnXu3_nc?controls=0&autoplay=1"
-                title="YouTube video player"
-                frameborder="0"
-                sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
-                allowfullscreen
-              ></iframe>
-            </Col>
-            <Col span={6}>
-              <iframe
-                width="100%"
-                height="100%"
-                auto
-                src="https://www.youtube.com/embed/z2OXnXu3_nc?controls=0&autoplay=1"
-                title="YouTube video player"
-                frameborder="0"
-                sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
-                allowfullscreen
-              ></iframe>
-            </Col>
-            <Col span={6}>
-              <iframe
-                width="100%"
-                height="100%"
-                auto
-                src="https://www.youtube.com/embed/z2OXnXu3_nc?controls=0&autoplay=1"
-                title="YouTube video player"
-                frameborder="0"
-                sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
-                allowfullscreen
-              ></iframe>
-            </Col>
-            <Col span={6}>
-              <iframe
-                width="100%"
-                height="100%"
-                auto
-                src="https://www.youtube.com/embed/z2OXnXu3_nc?controls=0&autoplay=1"
-                title="YouTube video player"
-                frameborder="0"
-                sandbox='allow-scripts allow-same-origin' // Security sandbox options
-                allow='accelerometer; encrypted-media; gyroscope; picture-in-picture' // Allow specific features
-                allowfullscreen
-              ></iframe>
-            </Col>
-          </Row>
           <Row>
-            <Chart />
+            <FakeChart />
           </Row>
         </Col>
       </Row>

@@ -10,6 +10,7 @@ const WebcamScreen = () => {
         audio={false}
         ref={webcam}
         mirrored={true}
+        style={{width: '100%', height: '100%'}}
       />
       {/* <video>
         <source/>
